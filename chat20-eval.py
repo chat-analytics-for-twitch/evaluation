@@ -4,6 +4,7 @@ from argparse import ArgumentParser
 from sys import stderr
 import pandas as pd
 from sklearn.metrics import f1_score
+from pathlib import Path
 
 EV_OUT = "evaluation.prototext"
 
@@ -14,13 +15,17 @@ def parse_input() -> tuple:
                             [1] the path to the output directory.
     """
     parser = ArgumentParser("A script to evaluate the performance of a ChAT20 submission.")
-    parser.add_argument("-p", "--predictions", help="path to the directory with the predicted predictions.csv")
+    parser.add_argument("-p", "--predictions", help="path to the FILE.csv with the predictions")
     parser.add_argument("-t", "--truth", help="path to the directory with the true truth.csv")
     parser.add_argument("-o", "--output", help="path to the directory to write the results to")
     args = parser.parse_args()
 
     targets = pd.read_csv(f"{args.truth}/truth.csv")
-    predictions = pd.read_csv(f"{args.predictions}/predictions.csv")
+
+    if not Path(args.predictions).is_file():
+        raise FileNotFoundError(f"The given filepath does not point to a valid predictions file:  {args.predictions}")
+
+    predictions = pd.read_csv(f"{args.predictions}")
 
     if not len(targets) == len(predictions):
         print("Invalid output file, predictions for some users are missing.", file=stderr)
