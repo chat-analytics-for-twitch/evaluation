@@ -59,5 +59,5 @@ if __name__ == "__main__":
     """
 
     results, output_dir = parse_input()
-    score = f1_score(results["subscribed_target"], results["subscribed_pred"], average="binary", pos_label=False)
+    score = f1_score(results["subscribed_target"], results["subscribed_pred"], average="binary")
     write_output("{}/{}".format(output_dir, EV_OUT), "f1", score)
