@@ -22,7 +22,7 @@ def parse_input() -> tuple:
 
     targets = pd.read_csv(f"{args.truth}/truth.csv")
 
-    if not Path(f"{args.predictions}/test.csv").is_file():
+    if not Path(f"{args.predictions}/predictions.csv").is_file():
         raise FileNotFoundError(f"The given filepath does not point to a valid predictions file:  {args.predictions}")
 
     predictions = pd.read_csv(f"{args.predictions}/test.csv")
