@@ -25,7 +25,7 @@ def parse_input() -> tuple:
     if not Path(f"{args.predictions}/predictions.csv").is_file():
         raise FileNotFoundError(f"The given filepath does not point to a valid predictions file:  {args.predictions}")
 
-    predictions = pd.read_csv(f"{args.predictions}/test.csv")
+    predictions = pd.read_csv(f"{args.predictions}/predictions.csv")
 
     if not len(targets) == len(predictions):
         print("Invalid output file, predictions for some users are missing.", file=stderr)
